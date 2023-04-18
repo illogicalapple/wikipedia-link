@@ -10,7 +10,7 @@ cipher = "❓ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!@#$%
 def decode(encoded):
   result = ""
   for part in [line[i:i+2] for i in range(0, len(line), 2)]:
-    result += cipher[int(part)]
+    result += cipher[int(part) - 3]
   return result
 
 def encode(text):
