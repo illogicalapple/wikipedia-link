@@ -17,7 +17,7 @@ def encode(text):
   result = ""
   for letter in text:
     encoded = cipher.find(letter) + 3
-    if encoded < 0:
+    if encoded < 3:
       encoded = "03"
     elif encoded < 10:
       encoded = "0" + str(encoded)
