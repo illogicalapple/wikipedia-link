@@ -32,7 +32,6 @@ def on_set(variable):
     return
   if str(variable.value)[0] == "00":
     return
-  if variable.value
   request = requests.get("https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exlimit=1&explaintext&exintro&titles=" + decode(str(variable.value)) + "&redirects=").json()
   page = list(request["pages"])[0]
   title = page["title"]
