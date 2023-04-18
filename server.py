@@ -16,9 +16,9 @@ def decode(encoded):
 def encode(text):
   result = ""
   for letter in text:
-    encoded = cipher.find(letter)
+    encoded = cipher.find(letter) + 3
     if encoded < 0:
-      encoded = "00"
+      encoded = "03"
     elif encoded < 10:
       encoded = "0" + str(encoded)
     else:
@@ -28,7 +28,15 @@ def encode(text):
 
 @connection.on("set")
 def on_set(variable):
-  request = requests.get("https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exlimit=max&explaintext&exintro&titles=" + decode(str(variable.value)) + "&redirects=").json()
+  if variable.value == 2:
+    return
+  if str(variable.value)[0] == "01":
+    return
+  if variable.value
+  request = requests.get("https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exlimit=1&explaintext&exintro&titles=" + decode(str(variable.value)) + "&redirects=").json()
   page = list(request["pages"])[0]
   title = page["title"]
   text = page["extract"]
+  result = "00" + encode(title) + "01" + encode(text)
+  result = result[:256]
+  connection.set_cloud_variable(variable.name, int(result))
